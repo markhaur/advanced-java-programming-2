@@ -8,15 +8,15 @@ public class GenericMethods {
     static Integer[] intArray = {1, 2, 3, 4, 5};
 
     /**
-     * map array of objects to list of objects
-     * This approach is not good for Generics in java as
-     * it do not provide type safety.
+     * Code is refactored using Generics which provides type safety.
+     * We have used T to represent Generic which has a local scope
+     * to method.
      * @param array
      * @param list
      * @return list of objects
      */
-    public static List mapArrayToList(Object[] array, List<Object> list){
-        for (Object a: array){
+    public static <T> List<T> mapArrayToList(T[] array, List<T> list){
+        for (T a: array){
             list.add(a);
         }
         return list;
@@ -27,16 +27,11 @@ public class GenericMethods {
         List<Boolean> boolList = mapArrayToList(boolArray, new ArrayList<>());
 
         /**
-         * I am not getting any compile time errors although I am trying to copy
-         * an integer array to string array. It is because of Object class. It is
-         * not providing us with Type Safety.
+         * As Java Generics promise type safety, tht is why the below line of code is
+         * giving a compile time error.
+         * Using this approach, we can still keep the method flexible but can discover
+         * errors much earlier.
          */
         List<String> stringList = mapArrayToList(intArray, new ArrayList<>());
-
-        /**
-         * The below line of code will not give any compile time error. But if we run, it
-         * will throw ClassCastException.
-         */
-        System.out.println(stringList.get(0));
     }
 }
